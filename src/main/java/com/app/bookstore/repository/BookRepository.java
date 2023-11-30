@@ -1,7 +1,7 @@
 package com.app.bookstore.repository;
 
-import java.util.List;
 import com.app.bookstore.model.Book;
+import java.util.List;
 
 public interface BookRepository {
 

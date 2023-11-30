@@ -5,10 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.math.BigDecimal;
 import lombok.Data;
 import org.springframework.lang.NonNull;
-
-import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -28,5 +27,7 @@ public class Book {
     private String description;
     private String coverImage;
 
-    public Book(){}
+    public Book() {
+
+    }
 }
