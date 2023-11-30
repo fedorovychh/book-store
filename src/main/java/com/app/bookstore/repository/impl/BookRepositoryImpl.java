@@ -46,8 +46,8 @@ public class BookRepositoryImpl implements BookRepository {
         try (Session session = sessionFactory.openSession()) {
             Query<Book> books = session.createQuery("FROM Book b", Book.class);
             return books.getResultList();
-        } catch (Exception e) {
-            throw new DataProcessingException(FIND_ALL_FAILURE_MESSAGE, e);
+        } catch (Exception ex) {
+            throw new DataProcessingException(FIND_ALL_FAILURE_MESSAGE, ex);
         }
     }
 }
