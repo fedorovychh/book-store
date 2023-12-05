@@ -1,6 +1,7 @@
 package com.app.bookstore.service.impl;
 
 import com.app.bookstore.dto.BookDto;
+import com.app.bookstore.dto.CreateBookRequestDto;
 import com.app.bookstore.mapper.BookMapper;
 import com.app.bookstore.model.Book;
 import com.app.bookstore.repository.BookRepository;
@@ -17,8 +18,15 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public Book save(Book book) {
-        return bookRepository.save(book);
+    public BookDto save(CreateBookRequestDto requestDto) {
+        Book book = bookMapper.toBook(requestDto);
+        return bookMapper.toDto(bookRepository.save(book));
+    }
+
+    @Override
+    public BookDto findById(Long id) {
+        Book book = bookRepository.findById(id);
+        return bookMapper.toDto(book);
     }
 
     @Override

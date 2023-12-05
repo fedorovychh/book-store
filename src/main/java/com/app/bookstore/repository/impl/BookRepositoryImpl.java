@@ -5,6 +5,7 @@ import com.app.bookstore.model.Book;
 import com.app.bookstore.repository.BookRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,7 +13,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
     private static final String SAVING_FAILURE_MESSAGE = "Can't save book {%s} to database!";
     private static final String FIND_ALL_FAILURE_MESSAGE = "Can't find all books from DB";
@@ -39,6 +40,16 @@ public class BookRepositoryImpl implements BookRepository {
             }
         }
         return book;
+    }
+
+    @Override
+    public Book findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Book.class, id);
+        } catch (Exception e) {
+            throw new DataProcessingException(
+                    "Can't get book with id: " + id, e);
+        }
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.app.bookstore.controller;
 
 import com.app.bookstore.dto.BookDto;
 import com.app.bookstore.dto.CreateBookRequestDto;
-import com.app.bookstore.model.Book;
 import com.app.bookstore.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +24,12 @@ public class BookController {
 
     @GetMapping(value = "/{id}")
     public BookDto getBookById(Long id) {
-        return bookService.findById();
+        return bookService.findById(id);
     }
 
     @PostMapping
-    public Book createBook(@RequestBody CreateBookRequestDto bookDto) {
-        return bookService.save(bookDto);
+    public BookDto createBook(@RequestBody CreateBookRequestDto requestDto) {
+        return bookService.save(requestDto);
     }
-
 
 }

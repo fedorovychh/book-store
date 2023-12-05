@@ -10,5 +10,5 @@ import org.mapstruct.MapperConfig;
 public interface BookMapper {
     BookDto toDto(Book book);
 
-    Book toBookEntity(CreateBookRequestDto bookRequestDto);
+    Book toBook(CreateBookRequestDto bookRequestDto);
 }
