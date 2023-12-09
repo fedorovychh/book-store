@@ -1,4 +1,4 @@
-package com.app.bookstore.service;
+package com.app.bookstore.service.book;
 
 import com.app.bookstore.dto.BookDto;
 import com.app.bookstore.dto.CreateBookRequestDto;

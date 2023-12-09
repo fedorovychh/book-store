@@ -2,7 +2,7 @@ package com.app.bookstore.controller;
 
 import com.app.bookstore.dto.BookDto;
 import com.app.bookstore.dto.CreateBookRequestDto;
-import com.app.bookstore.service.BookService;
+import com.app.bookstore.service.book.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
