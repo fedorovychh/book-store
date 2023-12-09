@@ -58,7 +58,7 @@ public class BookServiceImpl implements BookService {
     private void checkIfBookPresent(Long id) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if (bookOptional.isEmpty()) {
-            throw new EntityNotFoundException("Can't find book by id " + id);
+            throw new EntityNotFoundException("Can't find book by id: " + id);
         }
     }
 }
