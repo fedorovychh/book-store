@@ -1,32 +1,35 @@
 package com.app.bookstore.repository.impl;
 
 import com.app.bookstore.exception.DataProcessingException;
+import com.app.bookstore.exception.EntityNotFoundException;
 import com.app.bookstore.model.Book;
 import com.app.bookstore.repository.BookRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
     private static final String SAVING_FAILURE_MESSAGE = "Can't save book {%s} to database!";
+    private static final String FIND_BY_ID_FAILURE_MESSAGE = "Can't get book with id %d!";
     private static final String FIND_ALL_FAILURE_MESSAGE = "Can't find all books from DB";
 
-    private final SessionFactory sessionFactory;
+    private final EntityManagerFactory entityManagerFactory;
 
     @Override
     public Book save(Book book) {
-        Session session = null;
-        Transaction transaction = null;
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
         try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            session.persist(book);
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(book);
             transaction.commit();
         } catch (Exception ex) {
             if (transaction != null) {
@@ -34,20 +37,30 @@ public class BookRepositoryImpl implements BookRepository {
             }
             throw new DataProcessingException(String.format(SAVING_FAILURE_MESSAGE, book), ex);
         } finally {
-            if (session != null) {
-                session.close();
+            if (entityManager != null) {
+                entityManager.close();
             }
         }
         return book;
     }
 
     @Override
+    public Optional<Book> findById(Long id) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            Book book = entityManager.find(Book.class, id);
+            return Optional.ofNullable(book);
+        } catch (Exception e) {
+            throw new EntityNotFoundException(
+                    String.format(FIND_BY_ID_FAILURE_MESSAGE, id), e);
+        }
+    }
+
+    @Override
     public List<Book> findAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Book> books = session.createQuery("FROM Book b", Book.class);
-            return books.getResultList();
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            return entityManager.createQuery("FROM Book b", Book.class).getResultList();
         } catch (Exception ex) {
-            throw new DataProcessingException(FIND_ALL_FAILURE_MESSAGE, ex);
+            throw new EntityNotFoundException(FIND_ALL_FAILURE_MESSAGE, ex);
         }
     }
 }
