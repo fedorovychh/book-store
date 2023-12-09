@@ -2,13 +2,16 @@ package com.app.bookstore.service.book;
 
 import com.app.bookstore.dto.BookDto;
 import com.app.bookstore.dto.CreateBookRequestDto;
+import com.app.bookstore.dto.UpdateBookRequestDto;
 import com.app.bookstore.exception.EntityNotFoundException;
 import com.app.bookstore.mapper.BookMapper;
 import com.app.bookstore.model.Book;
 import com.app.bookstore.repository.book.BookRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +42,23 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public BookDto updateBookById(Long id, UpdateBookRequestDto updateBookRequestDto) {
+        checkIfBookPresent(id);
+        Book book = bookMapper.toBook(updateBookRequestDto);
+        book.setId(id);
+        return bookMapper.toDto(bookRepository.save(book));
+    }
+
+    private void checkIfBookPresent(Long id) {
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        if (bookOptional.isEmpty()) {
+            throw new EntityNotFoundException("Can't find book by id " + id);
+        }
     }
 }
