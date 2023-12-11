@@ -44,7 +44,6 @@ public class BookServiceImpl implements BookService {
         bookRepository.deleteById(id);
     }
 
-    @Transactional
     @Override
     public BookDto updateBookById(Long id, CreateBookRequestDto createBookRequestDto) {
         if (!bookRepository.existsById(id)) {
