@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = PasswordAndRepeatPasswordValidator.class)
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PasswordAndRepeatPasswordEqual {
+public @interface FieldMatch {
     String message() default "Passwords don't match";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
