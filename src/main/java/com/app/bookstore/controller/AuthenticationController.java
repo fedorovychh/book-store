@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/auth")
 public class AuthenticationController {
     @PostMapping(value = "/registration ")
-    public UserResponseDto register(@RequestBody UserRegistrationRequestDto requestDto) throws RegistrationException {
+    public UserResponseDto register(@RequestBody UserRegistrationRequestDto requestDto)
+            throws RegistrationException {
         return null;
     }
 }
