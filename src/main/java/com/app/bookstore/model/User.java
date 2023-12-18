@@ -18,16 +18,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
-    @NotNull
+    @Column(nullable = false)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private String password;
-    @NotNull
+    @Column(nullable = false)
     private String firstName;
-    @NotNull
+    @Column(nullable = false)
     private String lastName;
     private String shippingAddress;
 }
