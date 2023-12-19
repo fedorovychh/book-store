@@ -1,6 +1,5 @@
 package com.app.bookstore.security;
 
-import com.app.bookstore.model.User;
 import com.app.bookstore.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,12 +11,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
-                .orElseThrow(
-                        () -> new UsernameNotFoundException(String
-                                .format("Can't find user by email %s", email))
-                );
+                .orElseThrow(() -> new UsernameNotFoundException(String
+                                .format("Can't find user by email %s", email)));
     }
 }
