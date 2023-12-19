@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/changes/02-create-users-table.yaml
   - include:
       file: db/changelog/changes/03-add-column-is_deleted-to-users-table.yaml
+  - include:
+      file: db/changelog/changes/04-create-roles-table-and-insert-roles.yaml
