@@ -18,11 +18,3 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     nullable: false
-        - insert:
-            tableName: roles
-            columns:
-              - column: { name: name, value: "USER" }
-        - insert:
-            tableName: roles
-            columns:
-              - column: { name: name, value: "ADMIN" }
