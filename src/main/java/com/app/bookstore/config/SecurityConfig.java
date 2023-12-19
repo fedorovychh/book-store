@@ -16,6 +16,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfig {
+    private static final String[] AUTH_WHITELIST = {
+            "/auth/**",
+            "/error",
+            "/swagger-ui/**"
+    };
     private final UserDetailsService userDetailsService;
 
     @Bean
@@ -30,7 +35,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/auth/**", "/error")
+                                .requestMatchers(AUTH_WHITELIST)
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
