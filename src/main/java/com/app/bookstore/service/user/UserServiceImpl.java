@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
             );
         }
         User user = userMapper.toUser(requestDto);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         return userMapper.toDto(userRepository.save(user));
     }
 }
