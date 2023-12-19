@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-roles-to-role-table
+      id: insert-users_roles-table
       author: fedorovychh
       changes:
         - insert:
