@@ -3,15 +3,23 @@ package com.app.bookstore.security;
 import com.app.bookstore.dto.UserLoginRequestDto;
 import com.app.bookstore.dto.UserLoginResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+    private final AuthenticationManager authenticationManager;
 
     public UserLoginResponseDto authenticate(UserLoginRequestDto requestDto) {
-        String generatedToken = jwtUtil.generateToken(requestDto.email());
-        return null;
+        final Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(requestDto.email(), requestDto.password())
+        );
+
+        String generatedToken = jwtUtil.generateToken(authentication.getName());
+        return new UserLoginResponseDto(generatedToken);
     }
 }
