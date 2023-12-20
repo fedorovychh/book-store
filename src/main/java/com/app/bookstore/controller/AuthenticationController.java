@@ -1,5 +1,7 @@
 package com.app.bookstore.controller;
 
+import com.app.bookstore.dto.UserLoginRequestDto;
+import com.app.bookstore.dto.UserLoginResponseDto;
 import com.app.bookstore.dto.UserRegistrationRequestDto;
 import com.app.bookstore.dto.UserResponseDto;
 import com.app.bookstore.exception.RegistrationException;
@@ -16,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/auth")
 public class AuthenticationController {
     private final UserService userService;
+
+    @PostMapping(value = "/login")
+    public UserLoginResponseDto login(@RequestBody UserLoginRequestDto requestDto) {
+        return null;
+    }
 
     @PostMapping(value = "/registration")
     public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto requestDto)
