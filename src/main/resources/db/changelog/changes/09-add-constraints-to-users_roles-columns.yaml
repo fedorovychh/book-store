@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-constraints-to-users_roles-columns
+      author: fedorovychh
+      changes:
+        - addUniqueConstraint:
+            columnNames: user_id, role_id
+            constraintName: nullable
+            tableName: users_roles
