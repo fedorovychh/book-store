@@ -5,5 +5,29 @@ databaseChangeLog:
       changes:
         - addUniqueConstraint:
             columnNames: user_id, role_id
-            constraintName: nullable
+            constraintName: users_roles_user_id_role_id_AK
             tableName: users_roles
+        - addNotNullConstraint:
+            columnName: user_id
+            constraintName: users_roles_user_id_NN
+            columnDataType: bigint
+            tableName: users_roles
+        - addNotNullConstraint:
+            columnName: role_id
+            constraintName: users_roles_role_id_NN
+            columnDataType: bigint
+            tableName: users_roles
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: users_roles
+            constraintName: fk_user_role_user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            deleteCascade: true
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTableName: users_roles
+            constraintName: fk_user_role_role_id
+            referencedTableName: roles
+            referencedColumnNames: id
+            deleteCascade: true

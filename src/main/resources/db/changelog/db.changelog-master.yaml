@@ -15,3 +15,5 @@ databaseChangeLog:
       file: db/changelog/changes/07-insert-data-to-users_roles-table.yaml
   - include:
       file: db/changelog/changes/08-delete-column-id-from-users_roles.yaml
+  - include:
+      file: db/changelog/changes/09-add-constraints-to-users_roles-columns.yaml
