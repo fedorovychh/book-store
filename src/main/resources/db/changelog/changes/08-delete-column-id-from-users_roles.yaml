@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: delete-column-id-from-users_roles
+      author: fedorovychh
+      changes:
+      - dropColumn:
+          columns:
+            - column:
+                name: id
+          tableName: users_roles
