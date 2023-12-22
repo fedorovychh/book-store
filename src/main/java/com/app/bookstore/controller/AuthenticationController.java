@@ -1,8 +1,11 @@
 package com.app.bookstore.controller;
 
+import com.app.bookstore.dto.UserLoginRequestDto;
+import com.app.bookstore.dto.UserLoginResponseDto;
 import com.app.bookstore.dto.UserRegistrationRequestDto;
 import com.app.bookstore.dto.UserResponseDto;
 import com.app.bookstore.exception.RegistrationException;
+import com.app.bookstore.security.AuthenticationService;
 import com.app.bookstore.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/auth")
 public class AuthenticationController {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
+
+    @PostMapping(value = "/login")
+    public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto requestDto) {
+        return authenticationService.authenticate(requestDto);
+    }
 
     @PostMapping(value = "/registration")
     public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto requestDto)
