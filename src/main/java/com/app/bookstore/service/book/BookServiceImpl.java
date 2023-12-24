@@ -1,12 +1,17 @@
 package com.app.bookstore.service.book;
 
 import com.app.bookstore.dto.book.BookDto;
+import com.app.bookstore.dto.book.BookDtoWithoutCategoryIds;
 import com.app.bookstore.dto.book.CreateBookRequestDto;
+import com.app.bookstore.dto.category.CategoryResponseDto;
 import com.app.bookstore.exception.EntityNotFoundException;
 import com.app.bookstore.mapper.BookMapper;
 import com.app.bookstore.model.Book;
+import com.app.bookstore.model.Category;
 import com.app.bookstore.repository.book.BookRepository;
 import java.util.List;
+
+import com.app.bookstore.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -52,5 +58,15 @@ public class BookServiceImpl implements BookService {
         Book book = bookMapper.toBook(bookDto);
         book.setId(id);
         return bookMapper.toDto(bookRepository.save(book));
+    }
+
+    @Override
+    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() ->
+                        new EntityNotFoundException("Can't find category by id: " + id));
+        return bookRepository.getBooksByCategoriesContaining(category).stream()
+                .map(bookMapper::toDtoWithoutCategories)
+                .toList();
     }
 }
