@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users
+      author: fedorovychh
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: email, value: "alice@gmail.com" }
+              - column: { name: password, value: "$2a$10$MAFU2wDDNxK8FzZDoNMvCOw4N7kMn/.B6NphjovKpICzm0JS1ucKa" }
+              - column: { name: first_name, value: "Alice" }
+              - column: { name: last_name, value: "Moony" }
+              - column: { name: shipping_address, value: "35 Central St., Chicago, United States"}
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: email, value: "bob@gmail.com"}
+              - column: {name: password, value: "$2a$10$bGQNBlYC/L9FzbJ4FLEeuuG/rZp02P.UvjITotb70Hue0oJ7fmHDa"}
+              - column: {name: first_name, value: "Bob"}
+              - column: {name: last_name, value: "Williams"}
+              - column: {name: shipping_address, value: "19 Bakers St., New York, United States"}
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: email, value: "admin@gmail.com" }
+              - column: { name: password, value: "$2a$10$dxrPFbtmxRcb.vhx.SqJROIWPq4Kc0R29SAd.OpXhGVjSV0TxY7Re"}
+              - column: { name: first_name, value: "Admin" }
+              - column: { name: last_name, value: "Adminsky" }
+              - column: { name: shipping_address, value: "14 Main St., New York, United States" }
