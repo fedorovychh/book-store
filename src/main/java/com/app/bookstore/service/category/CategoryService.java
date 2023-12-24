@@ -2,10 +2,8 @@ package com.app.bookstore.service.category;
 
 import com.app.bookstore.dto.category.CategoryResponseDto;
 import com.app.bookstore.dto.category.CreateCategoryRequestDto;
-import com.app.bookstore.model.Category;
-import org.springframework.data.domain.Pageable;
-
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface CategoryService {
     List<CategoryResponseDto> findAll(Pageable pageable);

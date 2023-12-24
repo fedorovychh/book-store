@@ -6,10 +6,10 @@ import com.app.bookstore.exception.EntityNotFoundException;
 import com.app.bookstore.mapper.CategoryMapper;
 import com.app.bookstore.model.Category;
 import com.app.bookstore.repository.category.CategoryRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
