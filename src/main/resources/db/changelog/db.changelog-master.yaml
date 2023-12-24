@@ -21,3 +21,5 @@ databaseChangeLog:
       file: db/changelog/changes/10-insert-users.yaml
   - include:
       file: db/changelog/changes/11-insert-admin-relation-to-users_roles.yaml
+  - include:
+      file: db/changelog/changes/12-insert-books.yaml
