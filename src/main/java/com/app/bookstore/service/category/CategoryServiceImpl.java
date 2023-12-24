@@ -4,7 +4,6 @@ import com.app.bookstore.dto.category.CategoryResponseDto;
 import com.app.bookstore.dto.category.CreateCategoryRequestDto;
 import com.app.bookstore.exception.EntityNotFoundException;
 import com.app.bookstore.mapper.CategoryMapper;
-import com.app.bookstore.model.Book;
 import com.app.bookstore.model.Category;
 import com.app.bookstore.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;

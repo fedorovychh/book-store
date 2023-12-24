@@ -45,14 +45,14 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping
+    @GetMapping("/{id}")
     @Operation(summary = "Get category", description = "Get category by id")
     public CategoryResponseDto getCategoryById(@PathVariable Long id) {
         return categoryService.getById(id);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping
+    @PostMapping("/{id}")
     @Operation(summary = "Update category", description = "Update category by id")
     public CategoryResponseDto updateCategoryById(
             @PathVariable Long id,
@@ -62,14 +62,14 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping
+    @PostMapping("/{id}")
     @Operation(summary = "Delete category", description = "Delete category by id")
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteById(id);
     }
 
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
-    @GetMapping(value = "/{id}/books")
+    @GetMapping("/{id}/books")
     @Operation(summary = "Get books", description = "Get books by category id")
     public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(@PathVariable Long id) {
         return bookService.getBooksByCategoryId(id);
