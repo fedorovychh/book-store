@@ -10,6 +10,8 @@ import com.app.bookstore.model.Category;
 import com.app.bookstore.repository.book.BookRepository;
 import com.app.bookstore.repository.category.CategoryRepository;
 import java.util.List;
+
+import com.app.bookstore.service.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
@@ -60,10 +63,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long id) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() ->
-                        new EntityNotFoundException("Can't find category by id: " + id));
-        return bookRepository.getBooksByCategoriesContaining(category).stream()
+        return bookRepository.findAllByCategoryId(id).stream()
                 .map(bookMapper::toDtoWithoutCategories)
                 .toList();
     }
