@@ -13,8 +13,12 @@ import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
+@SQLDelete(sql = "UPDATE shopping_carts SET is_deleted = true WHERE id=?")
+@Where(clause = "is_deleted=false")
 @Data
 @Table(name = "shopping_carts")
 public class ShoppingCart {
@@ -30,4 +34,6 @@ public class ShoppingCart {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     Set<CartItem> cartItems;
+    @Column(nullable = false)
+    private boolean isDeleted = false;
 }
