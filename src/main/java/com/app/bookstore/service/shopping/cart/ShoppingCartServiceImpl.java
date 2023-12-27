@@ -35,9 +35,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCart = createNewShoppingCart(user);
         }
         Set<CartItem> cartItems = shoppingCart.getCartItems();
-        if (cartItems == null) {
-            cartItems = new HashSet<>();
-        }
         cartItems.add(cartItemMapper.toCartItem(requestDto));
         shoppingCart.setCartItems(cartItems);
         return shoppingCartMapper.toDto(shoppingCartRepository.save(shoppingCart));
