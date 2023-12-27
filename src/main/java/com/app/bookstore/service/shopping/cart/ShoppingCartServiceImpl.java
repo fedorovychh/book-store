@@ -6,11 +6,13 @@ import com.app.bookstore.mapper.CartItemMapper;
 import com.app.bookstore.mapper.ShoppingCartMapper;
 import com.app.bookstore.model.CartItem;
 import com.app.bookstore.model.ShoppingCart;
+import com.app.bookstore.model.User;
 import com.app.bookstore.repository.shopping.cart.ShoppingCartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -26,15 +28,24 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCartResponseDto addToShoppingCart(Long userId, CartItemRequestDto requestDto) {
-        ShoppingCart shoppingCartByUserId = shoppingCartRepository.findShoppingCartByUserId(userId);
-        if (shoppingCartByUserId != null) {
-            Set<CartItem> cartItems = shoppingCartByUserId.getCartItems();
-            cartItems.add(cartItemMapper.toCartItem(requestDto));
-            shoppingCartByUserId.setCartItems(cartItems);
+    public ShoppingCartResponseDto addToShoppingCart(Authentication authentication, CartItemRequestDto requestDto) {
+        User user = (User) authentication.getPrincipal();
+        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(user.getId());
+        if (shoppingCart == null) {
+            shoppingCart = createNewShoppingCart(user);
         }
+        Set<CartItem> cartItems = shoppingCart.getCartItems();
+        if (cartItems == null) {
+            cartItems = new HashSet<>();
+        }
+        cartItems.add(cartItemMapper.toCartItem(requestDto));
+        shoppingCart.setCartItems(cartItems);
+        return shoppingCartMapper.toDto(shoppingCartRepository.save(shoppingCart));
+    }
 
-
-        return null;
+    private ShoppingCart createNewShoppingCart(User user) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        return shoppingCart;
     }
 }

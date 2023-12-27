@@ -39,8 +39,7 @@ public class ShoppingCartController {
     @Operation(summary = "Add book to shopping cart", description = "Add book to shopping cart")
     public ShoppingCartResponseDto addToShoppingCart(Authentication authentication,
                                  @RequestBody @Valid CartItemRequestDto requestDto) {
-        Long userId = getUserId(authentication);
-        return shoppingCartService.addToShoppingCart(userId, requestDto);
+        return shoppingCartService.addToShoppingCart(authentication, requestDto);
     }
 
     private Long getUserId(Authentication authentication) {
