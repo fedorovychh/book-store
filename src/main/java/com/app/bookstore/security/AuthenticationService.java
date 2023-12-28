@@ -1,7 +1,7 @@
 package com.app.bookstore.security;
 
-import com.app.bookstore.dto.UserLoginRequestDto;
-import com.app.bookstore.dto.UserLoginResponseDto;
+import com.app.bookstore.dto.user.UserLoginRequestDto;
+import com.app.bookstore.dto.user.UserLoginResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

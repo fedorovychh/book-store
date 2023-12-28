@@ -1,7 +1,8 @@
 package com.app.bookstore.service.book;
 
-import com.app.bookstore.dto.BookDto;
-import com.app.bookstore.dto.CreateBookRequestDto;
+import com.app.bookstore.dto.book.BookDto;
+import com.app.bookstore.dto.book.BookDtoWithoutCategoryIds;
+import com.app.bookstore.dto.book.CreateBookRequestDto;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 
@@ -15,4 +16,6 @@ public interface BookService {
     void deleteBookById(Long id);
 
     BookDto updateBookById(Long id, CreateBookRequestDto bookDto);
+
+    List<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long id);
 }
