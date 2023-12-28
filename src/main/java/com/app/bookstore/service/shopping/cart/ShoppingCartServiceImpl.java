@@ -1,6 +1,7 @@
 package com.app.bookstore.service.shopping.cart;
 
 import com.app.bookstore.dto.cart.item.CartItemRequestDto;
+import com.app.bookstore.dto.shopping.cart.ShoppingCartRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartResponseDto;
 import com.app.bookstore.mapper.CartItemMapper;
 import com.app.bookstore.mapper.ShoppingCartMapper;
@@ -28,21 +29,26 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCartResponseDto addToShoppingCart(Authentication authentication, CartItemRequestDto requestDto) {
+    public ShoppingCartResponseDto addToShoppingCart(Authentication authentication,
+                                                     ShoppingCartRequestDto requestDto) {
         User user = (User) authentication.getPrincipal();
-        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(user.getId());
-        if (shoppingCart == null) {
-            shoppingCart = createNewShoppingCart(user);
-        }
-        Set<CartItem> cartItems = shoppingCart.getCartItems();
-        cartItems.add(cartItemMapper.toCartItem(requestDto));
-        shoppingCart.setCartItems(cartItems);
+        ShoppingCart shoppingCart = shoppingCartMapper.toShoppingCart(requestDto);
+        shoppingCart.setUser(user);
         return shoppingCartMapper.toDto(shoppingCartRepository.save(shoppingCart));
     }
 
-    private ShoppingCart createNewShoppingCart(User user) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setUser(user);
-        return shoppingCart;
+    @Override
+    public ShoppingCartResponseDto updateShoppingCartByCartId(
+            Authentication authentication,
+            Long cartItemId,
+            CartItemRequestDto requestDto
+    ) {
+        User user = (User) authentication.getPrincipal();
+        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(user.getId());
+        Set<CartItem> cartItems = shoppingCart.getCartItems();
+        // throw the service cart item I can update firstly cartIte,
+        // then set cart item to shopping cart and save shopping cart
+
+        return null;
     }
 }
