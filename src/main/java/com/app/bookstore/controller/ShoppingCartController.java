@@ -33,8 +33,7 @@ public class ShoppingCartController {
     @GetMapping
     @Operation(summary = "Get shopping cart", description = "Get all shopping cart details")
     public ShoppingCartResponseDto getShoppingCart(Authentication authentication) {
-        Long userId = getUserId(authentication);
-        return shoppingCartService.findShoppingCartByUserId(userId);
+        return shoppingCartService.findShoppingCartByUserId(getUserId(authentication));
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
