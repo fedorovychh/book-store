@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,15 +47,25 @@ public class ShoppingCartController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/cart-items/{cartItemId}")
-    @Operation(summary = "Update books quantity", description = "Update quantity of a book in the shopping cart")
+    @Operation(
+            summary = "Update books quantity",
+            description = "Update quantity of a book in the shopping cart"
+    )
     public ShoppingCartResponseDto updateById(
             Authentication authentication,
             @PathVariable Long cartItemId,
             @RequestBody @Valid CartItemRequestDto requestDto
     ) {
-        return shoppingCartService.updateShoppingCartByCartId(authentication, cartItemId, requestDto);
+        return shoppingCartService
+                .updateShoppingCartByCartId(authentication, cartItemId, requestDto);
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @DeleteMapping("/cart-items/{cartItemId}")
+    @Operation(
+            summary = "Delete book from shopping cart",
+            description = "Delete book from shopping cart by id"
+    )
     private Long getUserId(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return user.getId();
