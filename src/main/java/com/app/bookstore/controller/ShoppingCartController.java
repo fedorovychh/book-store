@@ -1,6 +1,6 @@
 package com.app.bookstore.controller;
 
-import com.app.bookstore.dto.cart.item.CartItemRequestDto;
+import com.app.bookstore.dto.cart.item.PutCartItemRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartResponseDto;
 import com.app.bookstore.model.User;
@@ -53,7 +53,7 @@ public class ShoppingCartController {
     public ShoppingCartResponseDto updateById(
             Authentication authentication,
             @PathVariable Long cartItemId,
-            @RequestBody @Valid CartItemRequestDto requestDto
+            @RequestBody @Valid PutCartItemRequestDto requestDto
     ) {
         return shoppingCartService
                 .updateShoppingCartByCartId(authentication, cartItemId, requestDto);

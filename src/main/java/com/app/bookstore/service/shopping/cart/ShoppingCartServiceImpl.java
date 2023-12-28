@@ -1,9 +1,10 @@
 package com.app.bookstore.service.shopping.cart;
 
-import com.app.bookstore.dto.cart.item.CartItemRequestDto;
+import com.app.bookstore.dto.cart.item.PutCartItemRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartResponseDto;
 import com.app.bookstore.mapper.ShoppingCartMapper;
+import com.app.bookstore.model.CartItem;
 import com.app.bookstore.model.ShoppingCart;
 import com.app.bookstore.model.User;
 import com.app.bookstore.repository.shopping.cart.ShoppingCartRepository;
@@ -25,19 +26,27 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    public void createShoppingCart(User user) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        shoppingCartRepository.save(shoppingCart);
+    }
+
+    @Override
     public ShoppingCartResponseDto addToShoppingCart(Authentication authentication,
                                                      ShoppingCartRequestDto requestDto) {
         User user = (User) authentication.getPrincipal();
-        ShoppingCart shoppingCart = shoppingCartMapper.toShoppingCart(requestDto);
-        shoppingCart.setUser(user);
-        return shoppingCartMapper.toDto(shoppingCartRepository.save(shoppingCart));
+        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(user.getId());
+        CartItem cartItem = cartItemService.addCartItem(shoppingCart, requestDto);
+        shoppingCart.getCartItems().add(cartItem);
+        return shoppingCartMapper.toDto(shoppingCart);
     }
 
     @Override
     public ShoppingCartResponseDto updateShoppingCartByCartId(
             Authentication authentication,
             Long cartItemId,
-            CartItemRequestDto requestDto
+            PutCartItemRequestDto requestDto
     ) {
         cartItemService.updateCartItemById(cartItemId, requestDto.getQuantity());
         User user = (User) authentication.getPrincipal();
