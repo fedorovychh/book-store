@@ -1,11 +1,8 @@
 package com.app.bookstore.controller;
 
 import com.app.bookstore.dto.cart.item.CartItemRequestDto;
-import com.app.bookstore.dto.category.CategoryResponseDto;
-import com.app.bookstore.dto.category.CreateCategoryRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartResponseDto;
-import com.app.bookstore.mapper.ShoppingCartMapper;
 import com.app.bookstore.model.User;
 import com.app.bookstore.service.cart.item.CartItemService;
 import com.app.bookstore.service.shopping.cart.ShoppingCartService;

@@ -3,10 +3,7 @@ package com.app.bookstore.service.shopping.cart;
 import com.app.bookstore.dto.cart.item.CartItemRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartResponseDto;
-import com.app.bookstore.exception.EntityNotFoundException;
-import com.app.bookstore.mapper.CartItemMapper;
 import com.app.bookstore.mapper.ShoppingCartMapper;
-import com.app.bookstore.model.CartItem;
 import com.app.bookstore.model.ShoppingCart;
 import com.app.bookstore.model.User;
 import com.app.bookstore.repository.shopping.cart.ShoppingCartRepository;
@@ -14,9 +11,6 @@ import com.app.bookstore.service.cart.item.CartItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor

@@ -33,7 +33,7 @@ public class ShoppingCart {
     @OneToMany
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    Set<CartItem> cartItems;
+    private Set<CartItem> cartItems;
     @Column(nullable = false)
     private boolean isDeleted = false;
 }
