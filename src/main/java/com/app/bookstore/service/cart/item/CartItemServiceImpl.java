@@ -16,14 +16,20 @@ public class CartItemServiceImpl implements CartItemService {
     private final CartItemMapper cartItemMapper;
 
     @Override
-    public CartItemResponseDto updateCartItemById(ShoppingCart shoppingCart, Long cartItemId, int quantity) {
-        CartItem cartItemById = shoppingCart.getCartItems().stream()
-                .filter(cartItem -> cartItem.getId().equals(cartItemId))
-                .findFirst()
-                .orElseThrow(
-                        () -> new EntityNotFoundException("Can't find item by id: " + cartItemId)
-                );
+    public CartItemResponseDto updateCartItemById(Long cartItemId, int quantity) {
+        CartItem cartItemById = parseCartItem(cartItemId);
         cartItemById.setQuantity(quantity);
         return cartItemMapper.toDto(cartItemRepository.save(cartItemById));
+    }
+
+    @Override
+    public void deleteCartItem(Long cartItemId) {
+        cartItemRepository.delete(parseCartItem(cartItemId));
+    }
+
+    private CartItem parseCartItem(Long cartItemId) {
+        return cartItemRepository.findById(cartItemId).orElseThrow(
+                () -> new EntityNotFoundException("Can't find item by id: " + cartItemId)
+        );
     }
 }

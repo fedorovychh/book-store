@@ -45,9 +45,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             Long cartItemId,
             CartItemRequestDto requestDto
     ) {
+        cartItemService.updateCartItemById(cartItemId, requestDto.getQuantity());
         User user = (User) authentication.getPrincipal();
         ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(user.getId());
-        cartItemService.updateCartItemById(shoppingCart, cartItemId, requestDto.getQuantity());
         return shoppingCartMapper.toDto(shoppingCart);
     }
 }

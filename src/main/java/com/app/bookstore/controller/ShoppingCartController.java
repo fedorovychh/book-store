@@ -7,6 +7,7 @@ import com.app.bookstore.dto.shopping.cart.ShoppingCartRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartResponseDto;
 import com.app.bookstore.mapper.ShoppingCartMapper;
 import com.app.bookstore.model.User;
+import com.app.bookstore.service.cart.item.CartItemService;
 import com.app.bookstore.service.shopping.cart.ShoppingCartService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Shopping cart management", description = "Endpoints for shopping cart")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
+    private final CartItemService cartItemService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping
@@ -66,6 +68,10 @@ public class ShoppingCartController {
             summary = "Delete book from shopping cart",
             description = "Delete book from shopping cart by id"
     )
+    public void deleteItemFromShoppingCart(@PathVariable Long cartItemId) {
+        cartItemService.deleteCartItem(cartItemId);
+    }
+
     private Long getUserId(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return user.getId();
