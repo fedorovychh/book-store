@@ -4,7 +4,6 @@ import com.app.bookstore.dto.cart.item.CartItemResponseDto;
 import com.app.bookstore.exception.EntityNotFoundException;
 import com.app.bookstore.mapper.CartItemMapper;
 import com.app.bookstore.model.CartItem;
-import com.app.bookstore.model.ShoppingCart;
 import com.app.bookstore.repository.cart.item.CartItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
