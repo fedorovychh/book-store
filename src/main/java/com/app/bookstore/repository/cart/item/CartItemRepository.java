@@ -1,6 +1,5 @@
 package com.app.bookstore.repository.cart.item;
 
-import com.app.bookstore.model.Book;
 import com.app.bookstore.model.CartItem;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -15,5 +14,5 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     Page<CartItem> findAll(Pageable pageable);
 
     @Query("SELECT b FROM CartItem b JOIN fetch b.shoppingCart c WHERE c.id = :itemId")
-    List<Book> findAllByItemId(Long itemId);
+    List<CartItem> findAllById(Long itemId);
 }

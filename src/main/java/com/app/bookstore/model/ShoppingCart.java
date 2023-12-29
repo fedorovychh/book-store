@@ -31,7 +31,7 @@ public class ShoppingCart {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private User user;
-    @OneToMany(mappedBy = "shoppingCart", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "shoppingCart")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<CartItem> cartItems;
