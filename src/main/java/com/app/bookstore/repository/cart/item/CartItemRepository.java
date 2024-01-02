@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-    @Query("SELECT b FROM CartItem b JOIN FETCH b.shoppingCart")
+    @Query("SELECT ci FROM CartItem ci JOIN FETCH ci.shoppingCart")
     Page<CartItem> findAll(Pageable pageable);
 
-    @Query("SELECT b FROM CartItem b JOIN fetch b.shoppingCart c WHERE c.id = :itemId")
+    @Query("SELECT ci FROM CartItem ci JOIN fetch ci.shoppingCart c WHERE c.id = :itemId")
     List<CartItem> findAllById(Long itemId);
 }
