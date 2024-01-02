@@ -3,6 +3,7 @@ package com.app.bookstore.service.shopping.cart;
 import com.app.bookstore.dto.cart.item.PutCartItemRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartResponseDto;
+import com.app.bookstore.exception.EntityNotFoundException;
 import com.app.bookstore.mapper.ShoppingCartMapper;
 import com.app.bookstore.model.CartItem;
 import com.app.bookstore.model.ShoppingCart;
@@ -22,7 +23,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCartResponseDto findByUserId(Long id) {
-        return shoppingCartMapper.toDto(shoppingCartRepository.findShoppingCartByUserId(id));
+        return shoppingCartMapper.toDto(shoppingCartRepository
+                .findShoppingCartByUserId(id)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Can't find"
+                                + " shopping cart by user's id: " + id)
+                ));
     }
 
     @Override
