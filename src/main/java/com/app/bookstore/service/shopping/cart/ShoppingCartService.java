@@ -7,7 +7,7 @@ import com.app.bookstore.model.User;
 import org.springframework.security.core.Authentication;
 
 public interface ShoppingCartService {
-    ShoppingCartResponseDto findShoppingCartByUserId(Long userId);
+    ShoppingCartResponseDto findByUserId(Long userId);
 
     void createShoppingCart(User user);
 
