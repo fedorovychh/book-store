@@ -20,7 +20,7 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public CartItemResponseDto updateCartItemById(Long cartItemId, int quantity) {
-        CartItem cartItemById = parseCartItem(cartItemId);
+        CartItem cartItemById = getById(cartItemId);
         cartItemById.setQuantity(quantity);
         return cartItemMapper.toDto(cartItemRepository.save(cartItemById));
     }
@@ -41,7 +41,7 @@ public class CartItemServiceImpl implements CartItemService {
         return cartItemRepository.save(cartItem);
     }
 
-    private CartItem parseCartItem(Long cartItemId) {
+    private CartItem getById(Long cartItemId) {
         return cartItemRepository.findById(cartItemId).orElseThrow(
                 () -> new EntityNotFoundException("Can't find item by id: " + cartItemId)
         );
