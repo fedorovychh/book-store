@@ -46,27 +46,27 @@ public class ShoppingCartController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @PutMapping("/cart-items/{cartItemId}")
+    @PutMapping("/cart-items/{id}")
     @Operation(
             summary = "Update books quantity",
             description = "Update quantity of a book in the shopping cart"
     )
     public ShoppingCartResponseDto updateById(
             Authentication authentication,
-            @PathVariable Long cartItemId,
+            @PathVariable Long id,
             @RequestBody @Valid PutCartItemRequestDto requestDto
     ) {
         return shoppingCartService
-                .updateByCartId(authentication, cartItemId, requestDto);
+                .updateByCartId(authentication, id, requestDto);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @DeleteMapping("/cart-items/{cartItemId}")
+    @DeleteMapping("/cart-items/{id}")
     @Operation(
             summary = "Delete book from shopping cart",
             description = "Delete book from shopping cart by id"
     )
-    public void deleteItemFromShoppingCart(@PathVariable Long cartItemId) {
-        cartItemService.deleteCartItem(cartItemId);
+    public void deleteItemFromShoppingCart(@PathVariable Long id) {
+        cartItemService.deleteCartItem(id);
     }
 }

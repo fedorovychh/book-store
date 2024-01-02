@@ -9,7 +9,7 @@ public interface CartItemService {
 
     CartItemResponseDto updateById(Long id, int quantity);
 
-    void deleteCartItem(Long cartItemId);
+    void deleteCartItem(Long id);
 
     CartItem addCartItem(ShoppingCart shoppingCart, ShoppingCartRequestDto requestDto);
 }
