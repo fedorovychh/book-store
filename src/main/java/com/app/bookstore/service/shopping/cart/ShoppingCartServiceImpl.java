@@ -21,8 +21,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartMapper shoppingCartMapper;
 
     @Override
-    public ShoppingCartResponseDto findByUserId(Long userId) {
-        return shoppingCartMapper.toDto(shoppingCartRepository.findShoppingCartByUserId(userId));
+    public ShoppingCartResponseDto findByUserId(Long id) {
+        return shoppingCartMapper.toDto(shoppingCartRepository.findShoppingCartByUserId(id));
     }
 
     @Override
