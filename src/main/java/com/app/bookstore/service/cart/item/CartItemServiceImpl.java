@@ -19,15 +19,15 @@ public class CartItemServiceImpl implements CartItemService {
     private final BookRepository bookRepository;
 
     @Override
-    public CartItemResponseDto updateById(Long cartItemId, int quantity) {
-        CartItem cartItemById = getById(cartItemId);
+    public CartItemResponseDto updateById(Long id, int quantity) {
+        CartItem cartItemById = getById(id);
         cartItemById.setQuantity(quantity);
         return cartItemMapper.toDto(cartItemRepository.save(cartItemById));
     }
 
     @Override
-    public void deleteCartItem(Long cartItemId) {
-        cartItemRepository.delete(getById(cartItemId));
+    public void deleteCartItem(Long id) {
+        cartItemRepository.delete(getById(id));
     }
 
     @Override
