@@ -24,7 +24,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCartResponseDto findByUserId(Long id) {
         return shoppingCartMapper.toDto(shoppingCartRepository
-                .findShoppingCartByUserId(id)
+                .findByUserId(id)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Can't find"
                                 + " shopping cart by user's id: " + id)
@@ -42,7 +42,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartResponseDto addToShoppingCart(Authentication authentication,
                                                      ShoppingCartRequestDto requestDto) {
         User user = (User) authentication.getPrincipal();
-        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(user.getId());
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(user.getId())
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Can't find"
+                                + " shopping cart by user's id: " + user.getId())
+                );
         CartItem cartItem = cartItemService.addCartItem(shoppingCart, requestDto);
         shoppingCart.getCartItems().add(cartItem);
         return shoppingCartMapper.toDto(shoppingCart);
@@ -56,7 +60,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     ) {
         cartItemService.updateById(id, requestDto.getQuantity());
         User user = (User) authentication.getPrincipal();
-        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(user.getId());
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(user.getId())
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Can't find"
+                                + " shopping cart by user's id: " + user.getId())
+                );
         return shoppingCartMapper.toDto(shoppingCart);
     }
 }
