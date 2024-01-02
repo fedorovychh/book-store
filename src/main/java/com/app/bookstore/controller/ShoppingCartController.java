@@ -33,7 +33,8 @@ public class ShoppingCartController {
     @GetMapping
     @Operation(summary = "Get shopping cart", description = "Get all shopping cart details")
     public ShoppingCartResponseDto getShoppingCart(Authentication authentication) {
-        return shoppingCartService.findShoppingCartByUserId(getUserId(authentication));
+        User user = (User) authentication.getPrincipal();
+        return shoppingCartService.findShoppingCartByUserId(user.getId());
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -67,10 +68,5 @@ public class ShoppingCartController {
     )
     public void deleteItemFromShoppingCart(@PathVariable Long cartItemId) {
         cartItemService.deleteCartItem(cartItemId);
-    }
-
-    private Long getUserId(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        return user.getId();
     }
 }
