@@ -57,7 +57,7 @@ public class ShoppingCartController {
             @RequestBody @Valid PutCartItemRequestDto requestDto
     ) {
         return shoppingCartService
-                .updateShoppingCartByCartId(authentication, cartItemId, requestDto);
+                .updateByCartId(authentication, cartItemId, requestDto);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")

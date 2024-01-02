@@ -43,12 +43,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public ShoppingCartResponseDto updateShoppingCartByCartId(
+    public ShoppingCartResponseDto updateByCartId(
             Authentication authentication,
             Long cartItemId,
             PutCartItemRequestDto requestDto
     ) {
-        cartItemService.updateCartItemById(cartItemId, requestDto.getQuantity());
+        cartItemService.updateById(cartItemId, requestDto.getQuantity());
         User user = (User) authentication.getPrincipal();
         ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByUserId(user.getId());
         return shoppingCartMapper.toDto(shoppingCart);

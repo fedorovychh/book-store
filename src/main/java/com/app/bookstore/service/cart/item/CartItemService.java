@@ -7,7 +7,7 @@ import com.app.bookstore.model.ShoppingCart;
 
 public interface CartItemService {
 
-    CartItemResponseDto updateCartItemById(Long cartItemId, int quantity);
+    CartItemResponseDto updateById(Long cartItemId, int quantity);
 
     void deleteCartItem(Long cartItemId);
 

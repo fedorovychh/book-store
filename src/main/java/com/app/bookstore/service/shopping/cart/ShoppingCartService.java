@@ -14,7 +14,7 @@ public interface ShoppingCartService {
     ShoppingCartResponseDto addToShoppingCart(Authentication authentication,
                                               ShoppingCartRequestDto requestDto);
 
-    ShoppingCartResponseDto updateShoppingCartByCartId(
+    ShoppingCartResponseDto updateByCartId(
             Authentication authentication,
             Long cartItemId,
             PutCartItemRequestDto requestDto
