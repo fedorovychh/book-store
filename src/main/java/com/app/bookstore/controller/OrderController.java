@@ -2,6 +2,7 @@ package com.app.bookstore.controller;
 
 import com.app.bookstore.dto.order.OrderRequestDto;
 import com.app.bookstore.dto.order.OrderResponseDto;
+import com.app.bookstore.service.order.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/orders")
 @Tag(name = "Order management", description = "Endpoints for managing orders")
 public class OrderController {
+    private final OrderService orderService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping
     @Operation(summary = "Place order", description = "Place order")
     public OrderResponseDto placeOrder(@RequestBody OrderRequestDto requestDto) {
-        return  null;
+        return orderService.placeOrder(requestDto);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
