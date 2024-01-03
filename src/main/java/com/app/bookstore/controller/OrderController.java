@@ -8,6 +8,7 @@ import com.app.bookstore.model.User;
 import com.app.bookstore.service.order.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -49,7 +48,7 @@ public class OrderController {
     public OrderResponseDto updateStatus(
             @PathVariable Long id,
             @RequestBody UpdateOrderRequestDto requestDto) {
-        return  orderService.updateStatus(id, requestDto);
+        return orderService.updateStatus(id, requestDto);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
