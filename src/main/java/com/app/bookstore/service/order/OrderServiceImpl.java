@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = createOrder(user, shoppingCart, requestDto);
         Order savedOrder = orderRepository.save(order);
         Set<OrderItem> orderItems = getOrderItems(shoppingCart);
-        savedOrder.setOrderItems(orderItems); // is not correct
+        savedOrder.setOrderItems(orderItems);
         orderItems.forEach(oi -> oi.setOrder(order));
         orderItemRepository.saveAll(orderItems);
         cartItemRepository.deleteAll(shoppingCart.getCartItems());
