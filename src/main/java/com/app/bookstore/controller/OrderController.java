@@ -3,6 +3,7 @@ package com.app.bookstore.controller;
 import com.app.bookstore.dto.order.OrderRequestDto;
 import com.app.bookstore.dto.order.OrderResponseDto;
 import com.app.bookstore.dto.order.UpdateOrderRequestDto;
+import com.app.bookstore.dto.order.item.OrderItemResponseDto;
 import com.app.bookstore.model.Order;
 import com.app.bookstore.model.OrderItem;
 import com.app.bookstore.model.User;
@@ -66,7 +67,11 @@ public class OrderController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/{id}/items/{itemId}")
-    public Object getItemById(@PathVariable Long id, @PathVariable Long itemId) {
-        return null;
+    @Operation(
+            summary = "Get item from order by id",
+            description = "Retrieve specific OrderItem from a specific order"
+    )
+    public OrderItemResponseDto getItemById(@PathVariable Long id, @PathVariable Long itemId) {
+        return orderItemService.getItemById(id, itemId);
     }
 }
