@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Query("SELECT o FROM Order o JOIN FETCH o.orderItemSet is WHERE o.user.id = :id")
+    @Query("SELECT o FROM Order o JOIN FETCH o.orderItems is WHERE o.user.id = :id")
     List<Order> findAllById(Long id);
 }
