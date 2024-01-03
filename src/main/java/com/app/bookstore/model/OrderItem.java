@@ -35,7 +35,9 @@ public class OrderItem {
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
+    @Column(nullable = false)
     private int quantity;
+    @Column(nullable = false)
     private BigDecimal price;
     @Column(nullable = false)
     private boolean isDeleted = false;

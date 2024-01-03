@@ -41,6 +41,7 @@ public class Order {
     private BigDecimal total;
     @CreationTimestamp
     private LocalDateTime orderDate;
+    @Column(nullable = false)
     private String shippingAddress;
     @OneToMany(mappedBy = "order")
     @ToString.Exclude
