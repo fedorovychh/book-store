@@ -4,8 +4,6 @@ import com.app.bookstore.dto.order.OrderRequestDto;
 import com.app.bookstore.dto.order.OrderResponseDto;
 import com.app.bookstore.dto.order.UpdateOrderRequestDto;
 import com.app.bookstore.dto.order.item.OrderItemResponseDto;
-import com.app.bookstore.model.Order;
-import com.app.bookstore.model.OrderItem;
 import com.app.bookstore.model.User;
 import com.app.bookstore.service.order.OrderService;
 import com.app.bookstore.service.order.item.OrderItemService;

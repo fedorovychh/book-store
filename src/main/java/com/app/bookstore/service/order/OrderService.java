@@ -3,7 +3,6 @@ package com.app.bookstore.service.order;
 import com.app.bookstore.dto.order.OrderRequestDto;
 import com.app.bookstore.dto.order.OrderResponseDto;
 import com.app.bookstore.dto.order.UpdateOrderRequestDto;
-import com.app.bookstore.model.Order;
 import java.util.List;
 
 public interface OrderService {
