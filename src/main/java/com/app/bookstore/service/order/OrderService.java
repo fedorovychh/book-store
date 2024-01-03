@@ -9,7 +9,7 @@ import java.util.List;
 public interface OrderService {
     OrderResponseDto placeOrder(OrderRequestDto requestDto);
 
-    List<Order> getAll(Long id);
+    List<OrderResponseDto> getAll(Long id);
 
     OrderResponseDto updateStatus(Long id, UpdateOrderRequestDto requestDto);
 }

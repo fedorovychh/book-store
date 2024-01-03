@@ -24,8 +24,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAll(Long id) {
-        return orderRepository.findAllById(id);
+    public List<OrderResponseDto> getAll(Long id) {
+        List<Order> orderList = orderRepository.findAllById(id);
+        return orderList.stream()
+                .map(orderMapper::toDto)
+                .toList();
     }
 
     @Override
