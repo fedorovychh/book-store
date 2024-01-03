@@ -4,8 +4,10 @@ import com.app.bookstore.dto.order.OrderRequestDto;
 import com.app.bookstore.dto.order.OrderResponseDto;
 import com.app.bookstore.dto.order.UpdateOrderRequestDto;
 import com.app.bookstore.model.Order;
+import com.app.bookstore.model.OrderItem;
 import com.app.bookstore.model.User;
 import com.app.bookstore.service.order.OrderService;
+import com.app.bookstore.service.order.item.OrderItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Order management", description = "Endpoints for managing orders")
 public class OrderController {
     private final OrderService orderService;
+    private final OrderItemService orderItemService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping
@@ -57,8 +60,8 @@ public class OrderController {
             summary = "Get all items by order id",
             description = "Retrieve all OrderItems for a specific order"
     )
-    public Object getAllById(@PathVariable Long id) {
-        return null;
+    public List<OrderItem> getAllById(@PathVariable Long id) {
+        return orderItemService.getAllById(id);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
