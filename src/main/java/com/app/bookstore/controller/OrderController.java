@@ -2,6 +2,7 @@ package com.app.bookstore.controller;
 
 import com.app.bookstore.dto.order.OrderRequestDto;
 import com.app.bookstore.dto.order.OrderResponseDto;
+import com.app.bookstore.dto.order.UpdateOrderRequestDto;
 import com.app.bookstore.model.Order;
 import com.app.bookstore.model.User;
 import com.app.bookstore.service.order.OrderService;
@@ -45,8 +46,10 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("/{id}")
     @Operation(summary = "Change order status", description = "Change order status")
-    public OrderResponseDto updateStatus(@PathVariable Long id, @RequestBody Object o) {
-        return  null;
+    public OrderResponseDto updateStatus(
+            @PathVariable Long id,
+            @RequestBody UpdateOrderRequestDto requestDto) {
+        return  orderService.updateStatus(id, requestDto);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
