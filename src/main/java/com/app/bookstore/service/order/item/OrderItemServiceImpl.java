@@ -16,8 +16,11 @@ public class OrderItemServiceImpl implements OrderItemService {
     private final OrderItemMapper orderItemMapper;
 
     @Override
-    public List<OrderItem> getAllById(Long id) {
-        return orderItemRepository.findAllById(id);
+    public List<OrderItemResponseDto> getAllById(Long id) {
+        List<OrderItem> items = orderItemRepository.findAllById(id);
+        return items.stream()
+                .map(orderItemMapper::toDto)
+                .toList();
     }
 
     @Override

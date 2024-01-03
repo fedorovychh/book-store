@@ -61,7 +61,7 @@ public class OrderController {
             summary = "Get all items by order id",
             description = "Retrieve all OrderItems for a specific order"
     )
-    public List<OrderItem> getAllById(@PathVariable Long id) {
+    public List<OrderItemResponseDto> getAllById(@PathVariable Long id) {
         return orderItemService.getAllById(id);
     }
 
