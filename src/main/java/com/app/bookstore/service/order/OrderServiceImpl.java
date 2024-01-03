@@ -6,11 +6,8 @@ import com.app.bookstore.dto.order.UpdateOrderRequestDto;
 import com.app.bookstore.exception.EntityNotFoundException;
 import com.app.bookstore.mapper.OrderMapper;
 import com.app.bookstore.model.Order;
-import com.app.bookstore.model.OrderItem;
 import com.app.bookstore.repository.order.OrderRepository;
 import java.util.List;
-
-import com.app.bookstore.repository.order.item.OrderItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +15,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
-    private final OrderItemRepository orderItemRepository;
     private final OrderMapper orderMapper;
 
     @Override
