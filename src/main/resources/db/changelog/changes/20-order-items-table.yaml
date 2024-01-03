@@ -34,7 +34,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: price
-                  type: decimal
+                  type: decimal(18,2)
                   constraints:
                     nullable: false
               - column:
