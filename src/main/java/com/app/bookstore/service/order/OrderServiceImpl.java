@@ -34,11 +34,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderResponseDto placeOrder(User user, OrderRequestDto requestDto) {
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(user.getId()).orElseThrow(
-                () -> new EntityNotFoundException("Can't find cart by user id: " + user.getId())
+    public OrderResponseDto placeOrder(Long id, OrderRequestDto requestDto) {
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(id).orElseThrow(
+                () -> new EntityNotFoundException("Can't find cart by user id: " + id)
         );
-        Order order = createOrder(user, shoppingCart, requestDto);
+        Order order = createOrder(id, shoppingCart, requestDto);
         Order savedOrder = orderRepository.save(order);
         Set<OrderItem> orderItems = getOrderItems(shoppingCart);
         savedOrder.setOrderItems(orderItems);
@@ -65,8 +65,10 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toDto(orderRepository.save(order));
     }
 
-    private Order createOrder(User user, ShoppingCart shoppingCart, OrderRequestDto requestDto) {
+    private Order createOrder(Long id, ShoppingCart shoppingCart, OrderRequestDto requestDto) {
         Order order = new Order();
+        User user = new User();
+        user.setId(id);
         order.setUser(user);
         order.setStatus(Order.Status.PROCESSING);
         order.setShippingAddress(requestDto.getShippingAddress());

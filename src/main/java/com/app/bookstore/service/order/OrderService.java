@@ -7,7 +7,7 @@ import com.app.bookstore.model.User;
 import java.util.List;
 
 public interface OrderService {
-    OrderResponseDto placeOrder(User user, OrderRequestDto requestDto);
+    OrderResponseDto placeOrder(Long id, OrderRequestDto requestDto);
 
     List<OrderResponseDto> getAll(Long id);
 
