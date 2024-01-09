@@ -42,7 +42,8 @@ public class ShoppingCartController {
     @Operation(summary = "Add book to shopping cart", description = "Add book to shopping cart")
     public ShoppingCartResponseDto addToShoppingCart(Authentication authentication,
                                  @RequestBody @Valid ShoppingCartRequestDto requestDto) {
-        return shoppingCartService.addToShoppingCart(authentication, requestDto);
+        User user = (User) authentication.getPrincipal();
+        return shoppingCartService.addToShoppingCart(user.getId(), requestDto);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -56,8 +57,9 @@ public class ShoppingCartController {
             @PathVariable Long id,
             @RequestBody @Valid PutCartItemRequestDto requestDto
     ) {
+        User user = (User) authentication.getPrincipal();
         return shoppingCartService
-                .updateByCartId(authentication, id, requestDto);
+                .updateByCartId(user.getId(), id, requestDto);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")

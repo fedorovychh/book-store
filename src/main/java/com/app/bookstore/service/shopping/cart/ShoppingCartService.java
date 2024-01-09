@@ -11,11 +11,11 @@ public interface ShoppingCartService {
 
     void createShoppingCart(User user);
 
-    ShoppingCartResponseDto addToShoppingCart(Authentication authentication,
+    ShoppingCartResponseDto addToShoppingCart(Long userId,
                                               ShoppingCartRequestDto requestDto);
 
     ShoppingCartResponseDto updateByCartId(
-            Authentication authentication,
+            Long userId,
             Long id,
             PutCartItemRequestDto requestDto
     );
