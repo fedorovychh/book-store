@@ -18,9 +18,9 @@ import org.springframework.test.context.jdbc.Sql;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class BookRepositoryTest {
+    private static Book book;
     @Autowired
     private BookRepository bookRepository;
-    private static Book book;
 
     @BeforeAll
     static void beforeAll() {
