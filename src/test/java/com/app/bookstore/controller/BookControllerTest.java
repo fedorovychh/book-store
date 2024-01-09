@@ -23,6 +23,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BookControllerTest {
+    private static final String URL_BOOKS = "/books";
+    private static final int DEFAULT_AMOUNT_IN_BOOKS_TABLE = 7;
     private static MockMvc mockMvc;
     private static BookDto bookDto;
     @Autowired
@@ -51,11 +53,11 @@ class BookControllerTest {
     @Test
     @DisplayName("Get all books")
     void getAll_ValidRequest_Success() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/books")).andReturn();
+        MvcResult mvcResult = mockMvc.perform(get(URL_BOOKS)).andReturn();
         List<BookDto> actual = objectMapper
                 .readValue(mvcResult.getResponse().getContentAsString(),
                     new TypeReference<>() {
                     });
-        Assertions.assertEquals(7, actual.size());
+        Assertions.assertEquals(DEFAULT_AMOUNT_IN_BOOKS_TABLE, actual.size());
     }
 }
