@@ -1,10 +1,13 @@
 package com.app.bookstore.repository.shopping.cart;
 
 import com.app.bookstore.model.Book;
-import com.app.bookstore.model.Category;
+import com.app.bookstore.model.CartItem;
 import com.app.bookstore.model.ShoppingCart;
 import com.app.bookstore.model.User;
-import liquibase.pro.packaged.S;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -14,10 +17,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -40,7 +39,10 @@ class ShoppingCartRepositoryTest {
 
     @Test
     @DisplayName("Find shopping cart by user's id")
-    @Sql(scripts = {"classpath:db/shopping-cart/add-cart.sql"},
+    @Sql(scripts = {
+            "classpath:db/shopping-cart/add-cart.sql",
+            "classpath:db/cart-item/add-cart-item.sql"
+    },
             executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     void findByUserId() {
         Optional<ShoppingCart> expected = Optional.of(shoppingCart);
