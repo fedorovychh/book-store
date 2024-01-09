@@ -1,13 +1,9 @@
 package com.app.bookstore.repository.shopping.cart;
 
-import com.app.bookstore.model.Book;
-import com.app.bookstore.model.CartItem;
 import com.app.bookstore.model.ShoppingCart;
 import com.app.bookstore.model.User;
 import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
-
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -42,9 +37,12 @@ class ShoppingCartRepositoryTest {
     @Sql(scripts = {
             "classpath:db/shopping-cart/add-cart.sql",
             "classpath:db/cart-item/add-cart-item.sql"
-    },
-            executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-    void findByUserId() {
+    }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Sql(scripts = {
+            "classpath:db/cart-item/delete-cart-items.sql",
+            "classpath:db/shopping-cart/delete-carts.sql"
+    }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    void findByUserId_ValidData_ReturnsCorrectShoppingCart() {
         Optional<ShoppingCart> expected = Optional.of(shoppingCart);
         Optional<ShoppingCart> actual = shoppingCartRepository.findByUserId(user.getId());
         Assertions.assertEquals(expected, actual,

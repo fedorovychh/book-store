@@ -11,7 +11,6 @@ import com.app.bookstore.model.User;
 import com.app.bookstore.repository.shopping.cart.ShoppingCartRepository;
 import com.app.bookstore.service.cart.item.CartItemService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -4,7 +4,6 @@ import com.app.bookstore.dto.cart.item.PutCartItemRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartRequestDto;
 import com.app.bookstore.dto.shopping.cart.ShoppingCartResponseDto;
 import com.app.bookstore.model.User;
-import org.springframework.security.core.Authentication;
 
 public interface ShoppingCartService {
     ShoppingCartResponseDto findByUserId(Long id);
