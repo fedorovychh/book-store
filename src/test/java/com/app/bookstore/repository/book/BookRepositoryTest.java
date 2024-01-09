@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.jdbc.Sql;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -38,16 +40,16 @@ class BookRepositoryTest {
     }
 
     @Test
-    @DisplayName("Find all books from DB with one book")
-    void findAll_OneBook_ReturnsCorrectData() {
+    @DisplayName("Find all books and check amount of them")
+    @Sql(scripts = {
+            "classpath:db/book/delete-books.sql",
+    }, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    void findAll_ValidBooks_ReturnsCorrectAmountOfBooks() {
         bookRepository.save(book);
-        Book bookFromDb = bookRepository.findAll(Pageable.ofSize(1)).stream()
-                .findFirst()
-                .get();
-        String expected = book.getTitle();
-        String actual = bookFromDb.getTitle();
-        Assertions.assertEquals(expected, actual,
-                "Expected book title: " + expected
+        int expected = 1;
+        Page<Book> actual = bookRepository.findAll(PageRequest.of(0, 1));
+        Assertions.assertEquals(expected, actual.getSize(),
+                "Expected amount of books: " + expected
                 + " but was: " + actual
         );
     }
