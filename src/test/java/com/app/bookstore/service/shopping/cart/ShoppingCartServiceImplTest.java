@@ -1,5 +1,7 @@
 package com.app.bookstore.service.shopping.cart;
 
+import static org.mockito.Mockito.when;
+
 import com.app.bookstore.dto.shopping.cart.ShoppingCartResponseDto;
 import com.app.bookstore.mapper.ShoppingCartMapper;
 import com.app.bookstore.model.ShoppingCart;
@@ -14,20 +16,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class ShoppingCartServiceImplTest {
+    private static ShoppingCart shoppingCart;
+    private static ShoppingCartResponseDto shoppingCartResponseDto;
+    private static User user;
     @Mock
     private static ShoppingCartRepository shoppingCartRepository;
     @Mock
     private static ShoppingCartMapper shoppingCartMapper;
     @InjectMocks
     private static ShoppingCartServiceImpl shoppingCartService;
-    private static ShoppingCart shoppingCart;
-    private static ShoppingCartResponseDto shoppingCartResponseDto;
-    private static User user;
 
     @BeforeAll
     static void beforeAll() {
@@ -48,9 +49,9 @@ class ShoppingCartServiceImplTest {
     @Test
     @DisplayName("Find shopping cart by user id")
     void findByUserId_ValidData_ReturnsShoppingCartResponseDto() {
-        Mockito.when(shoppingCartRepository.findByUserId(user.getId()))
+        when(shoppingCartRepository.findByUserId(user.getId()))
                 .thenReturn(Optional.ofNullable(shoppingCart));
-        Mockito.when(shoppingCartMapper.toDto(shoppingCart)).thenReturn(shoppingCartResponseDto);
+        when(shoppingCartMapper.toDto(shoppingCart)).thenReturn(shoppingCartResponseDto);
         ShoppingCartResponseDto expected = shoppingCartResponseDto;
         ShoppingCartResponseDto actual = shoppingCartService.findByUserId(user.getId());
         Assertions.assertEquals(expected, actual,

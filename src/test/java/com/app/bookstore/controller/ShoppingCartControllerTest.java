@@ -28,7 +28,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ShoppingCartControllerTest {
-    private static final String URL_BOOKS = "/cart";
     private static MockMvc mockMvc;
     private static ShoppingCartResponseDto shoppingCartResponseDto;
     @Autowired
@@ -79,8 +78,9 @@ class ShoppingCartControllerTest {
             "classpath:db/shopping-cart/delete-carts.sql"
     }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void getShoppingCart_ValidRequest_ReturnsCorrectResponseDto() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get(URL_BOOKS)).andReturn();
+        MvcResult mvcResult = mockMvc.perform(get("/cart")).andReturn();
         ShoppingCartResponseDto expected = shoppingCartResponseDto;
+
         ShoppingCartResponseDto actual
                 = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
                 ShoppingCartResponseDto.class);
