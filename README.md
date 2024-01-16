@@ -608,3 +608,15 @@ To circumvent these limitations, I implemented Docker within the project and tra
 **Enhanced discoverability:** Dynamic filtering will make it easier for users to discover books that align with their interests, potentially leading to increased engagement and sales.
 
 These enhancements are strategically important to make a user experience better.
+
+## How to run Book Store API
+1. Install [Docker](https://www.docker.com/products/docker-desktop/)
+2. Clone [current project](https://github.com/fedorovychh/book-store) repository
+3. Configure a "**.env**" file with necessary environment variables:
+    - change user
+    - change password
+4. Your spring.datasource url, username and password should match .env config
+5. Run the command `mvn clean package`
+6. Use `docker-compose build` to build Docker container
+7. Use `docker-compose up` to run Docker container
+8. Access the locally running application at http://localhost:8088/api
