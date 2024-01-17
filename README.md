@@ -514,7 +514,8 @@ The service offers a convenient search for books by categories to provide quick 
 ### Orders
 
 <details>
-  <summary>Update existing category</summary>
+  <summary>Update existing order</summary>
+
 
 * Endpoint ```/api/orders/1```
 * HTTP Request: PATCH
